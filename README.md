@@ -1,11 +1,11 @@
 # Daily Expense-iOS
-In this app,we try to develop regular expense of our daliy life. We entry our money begining of the month.Then,we entry our regular expense and show the regular expense.It records the regular expense.
+### In this app,we try to develop regular expense of our daliy life. We entry our money begining of the month.Then,we entry our regular expense and show the regular expense.It records the regular expense.
 ## Home Screen
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/1.jpg)
 ## Login page
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/2.jpg)
 
-We give our login username and password and it checks from permanent data which stores in key value "UserName" and "UserPassword".
+### We give our login username and password and it checks from permanent data which stores in key value "UserName" and "UserPassword".
 ```
 
     @IBAction func Logintest(_ sender: Any) {
@@ -36,7 +36,7 @@ We give our login username and password and it checks from permanent data which 
 ## Register page
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/4.jpg)
 
-We take username, Password from the user and save our data permanently.We check validation if any field is empty we show display alert message.
+### We take username, Password from the user and save our data permanently.We check validation if any field is empty we show display alert message.
 
 ```
   @IBAction func Register(_ sender: Any) {
@@ -76,7 +76,7 @@ We take username, Password from the user and save our data permanently.We check 
 ## Main view controller
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/3.jpg)
 
-We initially create a table.
+### We initially create a table.
 ```
  override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,8 +107,7 @@ We initially create a table.
 
 
 
-First we save our total money.We Entry our total money begining of the month and save our data permantly 
-using UserDefult.
+### First we save our total money.We Entry our total money begining of the month and save our data permanently using UserDefult.
 ```
  @IBAction func saved_total(_ sender: Any) {
         let money = total_money.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -133,7 +132,7 @@ using UserDefult.
         
     }
 ```
-Then we take regular expense and cut down from the total money.Here ,we use SQLITE to store our data.We use displayAlertMessag to show User message. We check validatation of the data.First textbox take only string value and second textbox take only integer value.Then,we insert our data try2 table.
+### Then we take regular expense and cut down from the total money.Here ,we use SQLITE to store our data.We use displayAlertMessag to show User message. We check validatation of the data.First textbox take only string value and second textbox take only integer value.Then,we insert our data try2 table.
 ```
  @IBAction func buttonSave(_ sender: UIButton) {
         let name = textFieldName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -233,7 +232,7 @@ Then we take regular expense and cut down from the total money.Here ,we use SQLI
     }
 ```
 
-We clear our our data from database.
+### We clear our our data from database.
 ```
 
     @IBAction func delete_data(_ sender: Any) {
@@ -257,7 +256,7 @@ We clear our our data from database.
         
     }
 ```
-In readValues function ,we load our data in UITableView.
+### In readValues function ,we load our data in UITableView.
 ```
 func readValues(){
         heroList.removeAll()
@@ -285,7 +284,7 @@ func readValues(){
         self.tableViewHeroes.reloadData()
     }
 ```
-We show our alert message in this section.
+### We show our alert message in this section.
 ```
   func displayAlertMessage(userMessage: String) {
         let alert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
@@ -295,7 +294,7 @@ We show our alert message in this section.
     }
 ```
 ## Hero.swift
- We create a class to hold  our data.
+### We create a class to hold  our data.
  ```
  class Hero {
     
