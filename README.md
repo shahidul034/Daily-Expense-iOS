@@ -189,6 +189,34 @@ We clear our our data from database.
         
     }
 ```
+In readValues function ,we load our data in UITableView.
+```
+func readValues(){
+        heroList.removeAll()
+
+        let queryString = "SELECT * FROM try2"
+        
+        var stmt:OpaquePointer?
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        while(sqlite3_step(stmt) == SQLITE_ROW){
+            let id = sqlite3_column_int(stmt, 0)
+            let name = String(cString: sqlite3_column_text(stmt, 1))
+            
+            let powerrank = sqlite3_column_int(stmt, 2)
+            
+            //print("enwcheck: ",name," ",name2)
+            heroList.append(Hero(id: Int(id), name: String(describing: name), powerRanking: Int(powerrank)))
+        }
+        
+        self.tableViewHeroes.reloadData()
+    }
+```
 
 ## ViewController.swift
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/5.jpg)
