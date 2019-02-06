@@ -8,6 +8,36 @@ In this app,we try to develop regular expense of our daliy life. We entry our mo
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/4.jpg)
 ## Main view controller
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/3.jpg)
+We initially create a table.
+```
+ override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "name.jpg")!)
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            .appendingPathComponent("HeroesDatabase.sqlite")
+        
+        
+        if sqlite3_open(fileURL.path, &db) != SQLITE_OK {
+            print("error opening database")
+        }
+        
+        if sqlite3_exec(db, "CREATE TABLE IF NOT EXISTS try2 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, powerrank INTEGER)", nil, nil,nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error creating table: \(errmsg)")
+            print("/////////////////////////////////")
+        }
+        
+        
+        
+        
+        readValues()
+        
+        
+    }
+```
+
+
 
 First we save our total money.We Entry our total money begining of the month and save our data permantly 
 using UserDefult.
@@ -132,6 +162,31 @@ Then we take regular expense and cut down from the total money.Here ,we use SQLI
         readValues()
 
         print("Data saved successfully")
+    }
+```
+
+We clear our our data from database.
+```
+
+    @IBAction func delete_data(_ sender: Any) {
+        let queryString = "delete FROM try2"
+        
+        var stmt:OpaquePointer?
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing delete: \(errmsg)")
+            return
+        }
+        
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure deleting hero: \(errmsg)")
+            return
+        }
+        readValues()
+        
+        
     }
 ```
 
