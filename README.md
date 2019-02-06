@@ -35,6 +35,105 @@ using UserDefult.
         
     }
 ```
+Then we take regular expense and cut down from the total money.Here ,we use SQLITE to store our data.We use displayAlertMessag to show User message. We check validatation of the data.First textbox take only string value and second textbox take only integer value.Then,we insert our data try2 table.
+```
+ @IBAction func buttonSave(_ sender: UIButton) {
+        let name = textFieldName.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let powerRanking = textFieldPowerRanking.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        if(name?.isEmpty)!{
+            displayAlertMessage(userMessage: "You must fill up the field!!")
+            return
+        }
+        
+        if(powerRanking?.isEmpty)!{
+            displayAlertMessage(userMessage: "You must fill up the field!!")
+            return
+        }
+        
+        ////////////
+        var num : Int = 0
+        var num2 : Int = 0
+        
+        for x in  powerRanking! {
+            num2=num2+1
+            if (x=="0" || x=="1" || x=="2" || x=="3" || x=="4" || x=="5" || x=="6" || x=="7" || x=="8" || x=="9" )
+            {
+               num=num+1
+            }
+        }
+        if (num != num2)
+        {
+            displayAlertMessage(userMessage: "Integer number must be entered!!")
+            return
+        }
+        
+        
+        
+        /////////////
+        var dat=userdef.string(forKey: "cnt")
+        let myInt = Int(dat!)
+        
+        let myInt2 = Int(powerRanking!)
+       
+         let val = myInt! - myInt2!
+        print("ans: ",name)
+        
+        var myString2 = String(val)
+        output.text="Remaining: " + myString2
+        userdef.set(myString2, forKey: "cnt")
+        
+        
+       
+        ////////////////
+       
+        
+        /*if()
+        {
+            displayAlertMessage(userMessage: "Passwords didn't match")
+            return
+        }*/
+        
+        //////////////
+        //print(name," ",powerRanking)
+        var stmt: OpaquePointer?
+        
+        let queryString = "INSERT INTO try2 (name, powerrank) VALUES (?,?)"
+        
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        
+        if sqlite3_bind_text(stmt, 1, name, -1, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure binding name: \(errmsg)")
+            return
+        }
+        
+        
+        if sqlite3_bind_int(stmt, 2, (powerRanking! as NSString).intValue) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure binding name: \(errmsg)")
+            return
+        }
+        
+
+        if sqlite3_step(stmt) != SQLITE_DONE {
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("failure inserting hero: \(errmsg)")
+            return
+        }
+        
+        textFieldName.text=""
+        textFieldPowerRanking.text=""
+        
+        readValues()
+
+        print("Data saved successfully")
+    }
+```
 
 ## ViewController.swift
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/5.jpg)
