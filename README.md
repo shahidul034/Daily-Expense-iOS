@@ -8,6 +8,7 @@ In this app,we try to develop regular expense of our daliy life. We entry our mo
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/4.jpg)
 ## Main view controller
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/3.jpg)
+
 We initially create a table.
 ```
  override func viewDidLoad() {
@@ -217,7 +218,32 @@ func readValues(){
         self.tableViewHeroes.reloadData()
     }
 ```
-
+We show our alert message in this section.
+```
+  func displayAlertMessage(userMessage: String) {
+        let alert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+```
+## Hero.swift
+ We create a class to hold  our data.
+ ```
+ class Hero {
+    
+    var id: Int
+    var name: String?
+    var powerRanking: Int
+    
+    init(id: Int, name: String?, powerRanking: Int){
+        self.id = id
+        self.name = name
+        self.powerRanking = powerRanking
+        
+    }
+}
+ ```
 ## ViewController.swift
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/5.jpg)
 ## Main storyboard
