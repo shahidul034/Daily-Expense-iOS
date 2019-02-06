@@ -4,8 +4,75 @@ In this app,we try to develop regular expense of our daliy life. We entry our mo
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/1.jpg)
 ## Login page
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/2.jpg)
+
+We give our login username and password and it checks from permanent data which stores in key value "UserName" and "UserPassword".
+```
+
+    @IBAction func Logintest(_ sender: Any) {
+        let user = username.text
+        let pass = passsword.text
+        
+        //retrieve from database
+        let storedName=UserDefaults.standard.string(forKey: "UserName")
+        let storedPassword=UserDefaults.standard.string(forKey: "UserPassword")
+        
+        //check if match
+        if (user==storedName && pass == storedPassword){
+           // displayAlertMessage(userMessage: "successful")
+            print("Yes logged")
+            
+            self.performSegue(withIdentifier: "logintospend", sender: self)
+                                                                   
+        }
+        else{
+           displayAlertMessage(userMessage: "not sucessful your username and/or password is wrong!!")
+            print("no logged")
+        }
+        //sucessful
+    }
+```
+
+
 ## Register page
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/4.jpg)
+
+We take username, Password from the user and save our data permanently.We check validation if any field is empty we show display alert message.
+
+```
+  @IBAction func Register(_ sender: Any) {
+        let password = Password.text
+        let user = username.text
+        let confirmPassword = ConfirmPassword.text
+        
+        //validation
+        
+        if((user ?? "").isEmpty || (password ?? "").isEmpty || (confirmPassword ?? "").isEmpty)
+        {
+            displayAlertMessage(userMessage: "All fields are required")
+            return
+            
+        }
+        if(password != confirmPassword)
+        {
+            displayAlertMessage(userMessage: "Passwords didn't match")
+            return
+        }
+        
+        //store
+        
+        UserDefaults.standard.set(password, forKey: "UserPassword")
+        UserDefaults.standard.set(user, forKey: "UserName")
+        
+        //success
+        let alert = UIAlertController(title: "Congrats!", message: "Registration Successful", preferredStyle: UIAlertControllerStyle.alert)
+        let okAction = UIAlertAction(title: "Thanks", style: UIAlertActionStyle.default, handler: {action in
+            self.performSegue(withIdentifier: "RegisterToHomePage", sender: self)
+            })
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+```
+
 ## Main view controller
 ![alt text](https://github.com/shahidul034/ios2/blob/master/ios2/3.jpg)
 
